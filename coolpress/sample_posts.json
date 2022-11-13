@@ -1,0 +1,188 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "val",
+        "first_name": "",
+        "last_name": "",
+        "email": "val@val.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-11-09T19:11:18.935Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mac",
+        "first_name": "",
+        "last_name": "",
+        "email": "mac@mac.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-11-09T19:13:36.350Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "samira",
+        "first_name": "",
+        "last_name": "",
+        "email": "sam@sam.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-11-13T10:20:55.236Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "press.cooluser",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "gravatar_link": null,
+        "github_profile": null,
+        "github_repos": null
+    }
+},
+{
+    "model": "press.cooluser",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "gravatar_link": null,
+        "github_profile": null,
+        "github_repos": null
+    }
+},
+{
+    "model": "press.cooluser",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "gravatar_link": null,
+        "github_profile": null,
+        "github_repos": null
+    }
+},
+{
+    "model": "press.category",
+    "pk": 1,
+    "fields": {
+        "label": "Lifestyle",
+        "slug": "lifestyle"
+    }
+},
+{
+    "model": "press.category",
+    "pk": 2,
+    "fields": {
+        "label": "Fashion",
+        "slug": "fashion"
+    }
+},
+{
+    "model": "press.category",
+    "pk": 3,
+    "fields": {
+        "label": "Education",
+        "slug": "education"
+    }
+},
+{
+    "model": "press.category",
+    "pk": 4,
+    "fields": {
+        "label": "Art",
+        "slug": "art"
+    }
+},
+{
+    "model": "press.post",
+    "pk": 1,
+    "fields": {
+        "title": "Autumn fashion trends",
+        "body": "With a slew of fashion shows worldwide comes a huge array of new trends on and off the runway. There is something here for everyone, whether you are layering cut-out tops, bright greens, or cowgirl hats. From street style inspiration to Instagram feeds, there are plenty of garments and aesthetics we’ve spotted. We’re certain they’ll be major players this season. Here are the top fashion trends spotted at Autumn/Winter 2022 Fashion Weeks. Try not to buy the entire list!",
+        "image_link": null,
+        "status": "DRAFT",
+        "author": 3,
+        "category": 2,
+        "creation_date": "2022-11-13T10:24:38.584Z",
+        "last_update": "2022-11-13T10:24:38.584Z"
+    }
+},
+{
+    "model": "press.post",
+    "pk": 2,
+    "fields": {
+        "title": "Higher education’s equity crisis threatens the whole sector",
+        "body": "Since 2018, over 1,000 organisations have participated in our online events or led activities of their own to raise awareness of inequalities in higher education access and success.\n",
+        "image_link": null,
+        "status": "DRAFT",
+        "author": 2,
+        "category": 3,
+        "creation_date": "2022-11-13T10:29:09.481Z",
+        "last_update": "2022-11-13T10:29:12.012Z"
+    }
+},
+{
+    "model": "press.post",
+    "pk": 3,
+    "fields": {
+        "title": "Why early childhood care and education matters",
+        "body": "But new UNESCO data shows that 1 out of 4 children aged 5 have never had any form of pre-primary education. This represents 35 million out of 137 million 5-year-old children worldwide. Despite research that proves the benefits of early childhood care and education (ECCE), only half of all countries guarantee free pre-primary education around the world.",
+        "image_link": null,
+        "status": "DRAFT",
+        "author": 1,
+        "category": 3,
+        "creation_date": "2022-11-13T10:32:11.523Z",
+        "last_update": "2022-11-13T10:32:11.523Z"
+    }
+},
+{
+    "model": "press.post",
+    "pk": 4,
+    "fields": {
+        "title": "You can 'step inside' an artwork at this immersive Dubai gallery",
+        "body": "The Theatre of Digital Art (ToDA) is a cultural space in Souk Madinat Jumeirah for tech enthusiasts and art lovers alike. With works from both historic masters and contemporary digital artists, ToDA allows visitors to experience art in a multisensory, immersive space, and even see NFTs in physical form presented in digital frames.",
+        "image_link": null,
+        "status": "DRAFT",
+        "author": 3,
+        "category": 4,
+        "creation_date": "2022-11-13T10:34:13.987Z",
+        "last_update": "2022-11-13T10:34:13.987Z"
+    }
+},
+{
+    "model": "press.post",
+    "pk": 5,
+    "fields": {
+        "title": "Maintaining An Active Lifestyle As A Sports Person",
+        "body": "Makeup and sweat don’t go together. Wearing makeup when exercising or engaging in sporting activities could be a red flag, and sometimes, leave you looking worse, especially if you aren’t armed with the right tips to create a flawless face for a day full of sports.",
+        "image_link": null,
+        "status": "DRAFT",
+        "author": 2,
+        "category": 1,
+        "creation_date": "2022-11-13T10:40:16.198Z",
+        "last_update": "2022-11-13T10:40:16.198Z"
+    }
+}
+]
