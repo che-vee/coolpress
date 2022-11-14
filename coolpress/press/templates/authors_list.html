@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table">
+  <thead class="bg-light sticky-top top-0">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Username</th>
+      <th scope="col">Github Username</th>
+      <th scope="col">Num of Repos</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for author in author_obj %}
+    <tr>
+      <th scope="row">{{author.id}}</th>
+      <td>{{author.user.first_name}}</td>
+      <td>{{author.user.last_name}}</td>
+      <td>{{author.user.username}}</td>
+      {% if author.github_profile %}
+        <td>{{author.github_profile}}</td>
+      {% else %}
+        <td>-</td>
+      {% endif %}
+      {% if author.github_repos %}
+        <td>{{author.github_repos}}</td>
+      {% else %}
+        <td>0</td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

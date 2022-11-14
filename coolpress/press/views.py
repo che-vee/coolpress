@@ -1,26 +1,26 @@
-
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-
 
 from press.models import Category, Post, CoolUser
 from press.forms import PostForm, CategoryForm
 
 
 def home(request):
-    now = datetime.datetime.now()
-    msg = 'Welcome to CoolPress'
-    categories = Category.objects.all()
-    user = request.user
-    li_cats = [f'<li>{cat.label}</li>' for cat in categories]
-    cats_ul = f'<ul>{"".join(li_cats)}</ul>'
+    categories = Category.objects.all().annotate(p_count=Count('post'))
+    posts = Post.objects.all()[:5]
 
-    html = f"<html><head><title>{msg}</title><body><h1>{msg}</h1><div>{user}</div><p>It is now {now}.<p>{cats_ul}</body></html>"
-    return HttpResponse(html)
+    return render(request, 'home.html', {'cat_obj': categories, 'posts_list': posts})
+
+
+def authors_list(request):
+    objects = CoolUser.objects.all()
+
+    return render(request, 'authors_list.html', {'author_obj': objects})
 
 
 def render_a_post(post):
