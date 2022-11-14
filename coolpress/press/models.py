@@ -19,6 +19,8 @@ class Category(models.Model):
     label = models.CharField(max_length=200)
     slug = models.SlugField()
 
+    created_by = models.ForeignKey(CoolUser, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return f"{self.label}"
 
