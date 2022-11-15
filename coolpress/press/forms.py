@@ -22,3 +22,10 @@ class CategoryForm(forms.Form):
                             widget=forms.TextInput(attrs={'class': 'form-control'}))
     slug = forms.CharField(label='Slug',
                            widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+
+class CommentForm(forms.Form):
+    body = forms.CharField(label='Add some comment',
+                           widget=forms.Textarea(attrs={'class': 'form-control'}))
+    votes = forms.IntegerField(label='Vote the post', min_value=1, max_value=10,
+                               widget=forms.NumberInput(attrs={'class': 'form-control'}))

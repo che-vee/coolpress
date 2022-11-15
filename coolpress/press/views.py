@@ -6,8 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from press.models import Category, Post, CoolUser
-from press.forms import PostForm, CategoryForm
+from press.models import Category, Post, CoolUser, Comment
+from press.forms import PostForm, CategoryForm, CommentForm
 
 
 def home(request):
@@ -34,7 +34,26 @@ def posts_list(request):
 
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    return render(request, 'post_detail.html', {'post_obj': post})
+    data = request.POST or {'votes': 10}
+    form = CommentForm(data)
+
+    comments = post.comment_set.order_by('-creation_date')
+    return render(request, 'post_detail.html', {'post_obj': post, 'comment_form': form, 'comments': comments})
+
+
+@login_required
+def add_post_comment(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    data = request.POST or {'votes': 10}
+    form = CommentForm(data)
+    if request.method == 'POST':
+        if form.is_valid():
+            votes = form.cleaned_data.get('votes')
+            body = form.cleaned_data['body']
+            Comment.objects.create(votes=votes, body=body, post=post, author=request.user.cooluser)
+            return HttpResponseRedirect(reverse('posts-detail', kwargs={'post_id': post_id}))
+
+    return render(request, 'comment_add.html', {'form': form, 'post': post})
 
 
 @login_required
