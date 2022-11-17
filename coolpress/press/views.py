@@ -1,7 +1,7 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, Max
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -32,12 +32,20 @@ def posts_list(request):
     return render(request, 'posts_list.html', {'posts_list': objects})
 
 
+def trending_posts_list(request):
+    objects = Post.objects.annotate(c_count=Count('comment')) \
+                  .annotate(latest_comment=Max('comment__creation_date')).filter(c_count__gte=5) \
+                  .order_by('-c_count').order_by('-latest_comment')[:20]
+
+    return render(request, 'trending_posts_list.html', {'trending_posts_list': objects})
+
+
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     data = request.POST or {'votes': 10}
     form = CommentForm(data)
 
-    comments = post.comment_set.order_by('-creation_date')
+    comments = post.comment_set.filter(status='PUBLISHED').order_by('-creation_date')
     return render(request, 'post_detail.html', {'post_obj': post, 'comment_form': form, 'comments': comments})
 
 

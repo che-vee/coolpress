@@ -12,4 +12,5 @@ urlpatterns = [
     path('post/<int:post_id>/comment-add/', views.add_post_comment, name='comment-add'),
     path('post/add/', views.post_update, name='post-add'),
     path('authors/', views.authors_list, name='authors-list'),
+    path('trending/', views.trending_posts_list, name='trending-posts-list'),
 ]
