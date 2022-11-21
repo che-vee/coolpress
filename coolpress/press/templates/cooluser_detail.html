@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center"> Username: {{object.user.username}}</h1>
+
+<div class="text-center">
+    {% if object.gravatar_link %}
+
+    <img style="min-width: 100px" src="{{object.gravatar_link}}">
+
+    <div class="col-md-6"><small class="text-muted">Created at:
+        {{object.ravatar_updated_at|date:'Y-d-m'}}</small></div>
+    {% endif %}
+    <div class="email font-weight-bold text-center">{{object.user.email}}</div>
+</div>
+
+{% endblock %}

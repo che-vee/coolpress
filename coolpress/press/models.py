@@ -1,15 +1,38 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
+from libgravatar import Gravatar
 
+import requests
 
 class CoolUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gravatar_link = models.URLField(null=True, blank=True)
+    gravatar_updated_at = models.DateTimeField(null=True, blank=True)
     github_profile = models.URLField(null=True, blank=True)
     github_repos = models.IntegerField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        super(CoolUser, self).save(*args, **kwargs)
+
+        if self.user.email is not None:
+            gravatar_link = get_gravatar_image(self.user.email)
+            self.gravatar_link = gravatar_link
+
+        self.gravatar_updated_at = datetime.now()
+
     def __str__(self):
         return f"{self.user.username}"
+
+
+def get_gravatar_image(email):
+    g = Gravatar(email)
+    profile_url = g.get_profile()
+    res = requests.get(profile_url)
+    if res.status_code == 200:
+        return g.get_image()
+    return None
 
 
 class Category(models.Model):

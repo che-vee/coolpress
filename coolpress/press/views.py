@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
+
 from press.models import Category, Post, CoolUser, Comment
 from press.forms import PostForm, CategoryForm, CommentForm
 
@@ -98,3 +99,8 @@ def new_category(request):
     else:
         form = CategoryForm()
     return render(request, 'category_add.html', {'form': form})
+
+
+def cu_detail(request, user_id):
+    cu = CoolUser.objects.get(id=user_id)
+    return render(request, 'cooluser_detail.html', {'object': cu})
