@@ -1,10 +1,13 @@
 from datetime import datetime
+from typing import Optional
 
+from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.db import models
 from libgravatar import Gravatar
 
 import requests
+
 
 class CoolUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -12,6 +15,8 @@ class CoolUser(models.Model):
     gravatar_updated_at = models.DateTimeField(null=True, blank=True)
     github_profile = models.URLField(null=True, blank=True)
     github_repos = models.IntegerField(null=True, blank=True)
+    github_stars = models.IntegerField(null=True, blank=True)
+    last_github_check = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         super(CoolUser, self).save(*args, **kwargs)
@@ -19,8 +24,39 @@ class CoolUser(models.Model):
         if self.user.email is not None:
             gravatar_link = get_gravatar_image(self.user.email)
             self.gravatar_link = gravatar_link
+            if self.last_github_check.date() != datetime.today().date():
+                self.last_github_check = datetime.now()
+                self.github_repos = self.get_github_repos()
+                self.github_stars = self.get_github_stars()
 
         self.gravatar_updated_at = datetime.now()
+
+    def get_github_url(self) -> Optional[str]:
+        if self.github_profile:
+            url = f'https://github.com/{self.github_profile}'
+            response = requests.get(url)
+            if response.status_code == 200:
+                return url
+
+    def get_github_repos(self) -> Optional[int]:
+        url = self.get_github_url()
+        if url:
+            response = requests.get(url)
+            soup = BeautifulSoup(response.content, 'html.parser')
+            css_selector = '.Counter'
+            repositories_info = soup.select_one(css_selector)
+            repos_text = repositories_info.text
+            return int(repos_text)
+
+    def get_github_stars(self) -> Optional[int]:
+        url = self.get_github_url()
+        if url:
+            response = requests.get(url)
+            soup = BeautifulSoup(response.content, 'html.parser')
+            css_selector = 'div.Layout-main > div > nav > a:nth-child(5) > span'
+            stars_info = soup.select(css_selector)
+            stars_text = stars_info.text
+            return int(stars_text)
 
     def __str__(self):
         return f"{self.user.username}"

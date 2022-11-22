@@ -9,7 +9,13 @@
     <img style="min-width: 100px" src="{{object.gravatar_link}}">
 
     <div class="col-md-6"><small class="text-muted">Created at:
-        {{object.ravatar_updated_at|date:'Y-d-m'}}</small></div>
+        {{object.gravatar_updated_at|date:'Y-d-m'}}</small></div>
+    {% endif %}
+    {% if object.github_profile %}
+    <div class="col-md-6">Repos:
+        {{object.github_repos}}</div>
+    <div class="col-md-6">Stars:
+        {{object.github_stars}}</div>
     {% endif %}
     <div class="email font-weight-bold text-center">{{object.user.email}}</div>
 </div>
