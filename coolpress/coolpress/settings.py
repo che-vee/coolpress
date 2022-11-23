@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'press'
+    'press',
+    'rest_framework',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -153,4 +155,8 @@ LOGGING = {
             'handlers': ['console'],
         }
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }

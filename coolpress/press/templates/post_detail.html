@@ -16,6 +16,10 @@
         at: {{post_obj.source_label}}</a>
 </div>
 {% endif %}
+<div class="text-center">
+    <a class="btn btn-info" href="{% url 'author-posts' post_obj.author.user.id %}">View all posts written by: {{post_obj.author}}</a>
+</div>
+
 
 
 <div class="row">

@@ -1,7 +1,14 @@
 
 
-from django.urls import path
+from django.urls import path, include
 from press import views
+from press.views import AuthorPosts
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'categories', views.CategoryViewSet)
+router.register(r'posts', views.PostViewSet)
+router.register(r'authors', views.AuthorsViewSet)
 
 urlpatterns = [
     path('home/', views.home, name='home'),
@@ -14,4 +21,8 @@ urlpatterns = [
     path('authors/', views.authors_list, name='authors-list'),
     path('trending/', views.trending_posts_list, name='trending-posts-list'),
     path('author/<int:user_id>', views.cu_detail, name='cooluser-detail'),
+    path('posts/author/<int:user_id>', AuthorPosts.as_view(), name='author-posts'),
+
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
 ]
