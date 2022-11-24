@@ -124,8 +124,10 @@ class AuthorPosts(PostClassBasedListView):
 
     def get_queryset(self):
         queryset = super(AuthorPosts, self).get_queryset()
-        author = get_object_or_404(CoolUser, id=self.kwargs['user_id'])
-        return queryset.filter(author_id=author)
+        username = get_object_or_404(User, username=self.kwargs['username'])
+        user = User.objects.get(username=username)
+        author = CoolUser.objects.get(user_id=user.id)
+        return queryset.filter(author=author)
 
 
 

@@ -17,7 +17,7 @@
 </div>
 {% endif %}
 <div class="text-center">
-    <a class="btn btn-info" href="{% url 'author-posts' post_obj.author.user.id %}">View all posts written by: {{post_obj.author}}</a>
+    <a class="btn btn-info" href="{% url 'author-posts' post_obj.author.user.username %}">View all posts written by: {{post_obj.author}}</a>
 </div>
 
 
