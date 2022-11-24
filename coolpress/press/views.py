@@ -54,8 +54,9 @@ def post_detail(request, post_id):
     form = CommentForm(data)
 
     comments = post.comment_set.filter(status='PUBLISHED').order_by('-creation_date')
-    comment_stats = comment_analyzer(comments).top(10)
-    return render(request, 'post_detail.html', {'post_obj': post, 'comment_form': form, 'comments': comments, 'comment_stats': comment_stats})
+    stats = comment_analyzer(comments)
+    comment_stats = stats.top(10)
+    return render(request, 'post_detail.html', {'post_obj': post, 'comment_form': form, 'comments': comments, 'comment_stats': comment_stats, 'stats': stats})
 
 
 @login_required

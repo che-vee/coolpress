@@ -73,6 +73,10 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="text-center mb-2">
+        {{ stats.word_cloud.to_svg|safe }}
+    </div>
 {% endif %}
 
 {% endblock %}
