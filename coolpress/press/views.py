@@ -15,6 +15,7 @@ from rest_framework.viewsets import GenericViewSet
 from press.models import Category, Post, CoolUser, Comment, PostStatus
 from press.forms import PostForm, CategoryForm, CommentForm
 from press.serializers import CategorySerializer, PostSerializer, AuthorSerializer
+from press.stats_manager import comment_analyzer
 
 
 def home(request):
@@ -53,7 +54,8 @@ def post_detail(request, post_id):
     form = CommentForm(data)
 
     comments = post.comment_set.filter(status='PUBLISHED').order_by('-creation_date')
-    return render(request, 'post_detail.html', {'post_obj': post, 'comment_form': form, 'comments': comments})
+    comment_stats = comment_analyzer(comments).top(10)
+    return render(request, 'post_detail.html', {'post_obj': post, 'comment_form': form, 'comments': comments, 'stats': comment_stats})
 
 
 @login_required
